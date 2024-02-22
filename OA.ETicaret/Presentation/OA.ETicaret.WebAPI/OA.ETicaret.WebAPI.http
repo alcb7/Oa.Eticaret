@@ -1,0 +1,6 @@
+@OA.ETicaret.WebAPI_HostAddress = http://localhost:5123
+
+GET {{OA.ETicaret.WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
