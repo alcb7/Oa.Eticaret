@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OA.ETicaret.Persistance.Contexts;
 using System;
@@ -13,7 +14,11 @@ namespace OA.ETicaret.Persistance
     {
         public static void AddPersistenceService(this IServiceCollection services)
         {
-            services.AddDbContext<ETicaretAPIDbContext>(options => options.UseNpgsql("User ID=postgres;Password=123456;Host=localhost;Port=5432;Database=ETicaretAPIDb;"));
+            ConfigurationManager configurationManager = new();
+            configurationManager.SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../../Presentation/OA.ETicaret.WebAPI"));
+            configurationManager.AddJsonFile("appsettings.json");
+
+            services.AddDbContext<ETicaretAPIDbContext>(options => options.UseNpgsql(configurationManager.GetConnectionString("PostgreSQL")));
         }
     }
 }
